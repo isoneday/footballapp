@@ -9,6 +9,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.isoneday.footballappapi.R
+import com.isoneday.footballappapi.adapter.ListLeagueAdapter
 import com.isoneday.footballappapi.mvp.model.EventsItem
 import com.isoneday.footballappapi.mvp.presenter.MainPresenter
 import com.isoneday.footballappapi.mvp.view.MainView
@@ -27,13 +28,13 @@ class LastMatchFragment : Fragment(), MainView {
     var mainPresenter : MainPresenter? = null
     var liga: MutableList<EventsItem> = mutableListOf()
     var idliga : Int =4335
-
+    var listLeagueAdapter : ListLeagueAdapter? =null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val v = inflater.inflate(R.layout.fragment_next_match, container, false)
+        val v = inflater.inflate(R.layout.fragment_match, container, false)
         val layoutliga : RecyclerView = v.findViewById(R.id.listfootball)
         layoutliga.layoutManager = LinearLayoutManager(activity)
         return v
@@ -43,6 +44,8 @@ class LastMatchFragment : Fragment(), MainView {
         super.onViewCreated(view, savedInstanceState)
 
         mainPresenter =MainPresenter(this)
+        mainPresenter?.getLastMatch(idliga)
+        listLeagueAdapter = ListLeagueAdapter(liga)
     }
 
     override fun showloading() {

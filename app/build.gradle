@@ -41,6 +41,9 @@ dependencies {
     implementation 'com.squareup.retrofit2:converter-gson:2.4.0'
     //detail log
     implementation 'com.squareup.okhttp3:logging-interceptor:3.9.1'
+    //anko coroutine
     implementation "org.jetbrains.anko:anko-coroutines:$anko_version"
     implementation 'com.android.support:recyclerview-v7:28.0.0'
+    // anko layout
+    implementation "org.jetbrains.anko:anko-appcompat-v7:$anko_version"
 }
