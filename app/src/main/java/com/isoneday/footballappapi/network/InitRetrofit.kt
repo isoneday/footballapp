@@ -1,7 +1,6 @@
 package com.isoneday.footballappapi.network
 
 import com.google.gson.GsonBuilder
-import com.isoneday.footballappapi.BuildConfig
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -9,6 +8,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
 
 object InitRetrofit {
+    val BASE_URL = "https://www.thesportsdb.com/"
     val interceptor = HttpLoggingInterceptor()
         .setLevel(HttpLoggingInterceptor.Level.BODY)
     val client = OkHttpClient.Builder()
@@ -20,7 +20,7 @@ object InitRetrofit {
     val gson = GsonBuilder().setLenient().create()
 
     val retrofit = Retrofit.Builder()
-        .baseUrl(BuildConfig.BASE_URL)
+        .baseUrl(BASE_URL)
         .client(client)
         .addConverterFactory(GsonConverterFactory.create(gson))
         .build()

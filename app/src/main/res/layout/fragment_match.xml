@@ -3,16 +3,16 @@
              xmlns:tools="http://schemas.android.com/tools"
              android:layout_width="match_parent"
              android:layout_height="match_parent"
-             tools:context=".mvp.view.fragment.NextMatchFragment">
+             tools:context=".mvp.view.fragment.LastMatchFragment">
 
     <!-- TODO: Update blank fragment layout -->
-    <android.support.v7.widget.RecyclerView
-            android:id="@+id/listfootball"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-    />
-    <ProgressBar android:layout_width="match_parent"
-                 android:layout_height="wrap_content"
-                 android:id="@+id/progress"/>
 
+    <android.support.v7.widget.RecyclerView
+            android:id="@+id/layoutLiga"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+    </android.support.v7.widget.RecyclerView>
+<ProgressBar android:layout_width="match_parent" android:layout_height="wrap_content"
+android:id="@+id/progress"/>
 </FrameLayout>
+
