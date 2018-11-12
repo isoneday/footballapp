@@ -10,4 +10,7 @@ interface RestApi {
     @GET("api/v1/json/1/eventspastleague.php")
     fun getLastMatch(@Query("id") leagueid:Int): Call<ResponseLeague>
 
+   @GET("api/v1/json/1/eventsnextleague.php")
+    fun getNextMatch(@Query("id") leagueid:Int): Call<ResponseLeague>
+
 }

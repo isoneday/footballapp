@@ -8,33 +8,41 @@ import android.widget.TextView
 import com.isoneday.footballappapi.R
 import com.isoneday.footballappapi.mvp.model.EventsItem
 import org.jetbrains.anko.find
+import org.jetbrains.anko.sdk27.coroutines.onClick
 
 //ketika ekstends ke adapter RV ada 3 fun wajib di implementasikan
-class ListLeagueAdapter(private val liga: MutableList<EventsItem>) :
+class ListLeagueAdapter(private val liga: MutableList<EventsItem>,
+                        private val listener : (EventsItem)-> Unit) :
     RecyclerView.Adapter<ListLeagueAdapter.MyViewHolder>() {
 
     //untuk membuat tampilan / layout
     override fun onCreateViewHolder(p0: ViewGroup, p1: Int): ListLeagueAdapter.MyViewHolder {
-    val v: View =LayoutInflater.from(p0.context)
-        .inflate(R.layout.listliga,p0,false)
+        val v: View = LayoutInflater.from(p0.context)
+            .inflate(R.layout.listliga, p0, false)
         return MyViewHolder(v)
     }
+
     //untuk deklarasi dan inisialisasi dari view/widget yang ada dilayout
     class MyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
 
-        val dateliga : TextView = itemView.find(R.id.event_date)
-        val scorehome : TextView = itemView.find(R.id.home_team_score)
-        val scoreaway : TextView = itemView.find(R.id.away_team_score)
-        val teamhome : TextView = itemView.find(R.id.home_team)
-        val teamaway : TextView = itemView.find(R.id.away_team)
+        val dateliga: TextView = itemView.find(R.id.event_date)
+        val scorehome: TextView? = itemView.find(R.id.home_team_score)
+        val scoreaway: TextView? = itemView.find(R.id.away_team_score)
+        val teamhome: TextView = itemView.find(R.id.home_team)
+        val teamaway: TextView = itemView.find(R.id.away_team)
 
-        fun bindItem(eventsItem: EventsItem) {
-        dateliga.text =eventsItem.strDate
-            scorehome.text = eventsItem.intHomeScore.toString()
-            scoreaway.text = eventsItem.intAwayScore.toString()
+        fun bindItem(
+            eventsItem: EventsItem,
+            listener: (EventsItem) -> Unit
+        ) {
+            dateliga.text = eventsItem.strDate
+            scorehome?.text = eventsItem.intHomeScore.toString()
+            scoreaway?.text = eventsItem.intAwayScore.toString()
             teamhome.text = eventsItem.strHomeTeam
             teamaway.text = eventsItem.strAwayTeam
+            itemView.onClick { listener(eventsItem)
+            }
         }
     }
 
@@ -44,6 +52,7 @@ class ListLeagueAdapter(private val liga: MutableList<EventsItem>) :
 
     //untuk mengisi view sesuai dengan data
     override fun onBindViewHolder(p0: ListLeagueAdapter.MyViewHolder, p1: Int) {
-        p0.bindItem(liga[p1])
+        p0.bindItem(liga[p1],listener)
+
     }
 }

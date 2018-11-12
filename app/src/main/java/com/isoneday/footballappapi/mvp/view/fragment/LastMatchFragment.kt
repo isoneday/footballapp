@@ -13,6 +13,10 @@ import com.isoneday.footballappapi.adapter.ListLeagueAdapter
 import com.isoneday.footballappapi.mvp.model.EventsItem
 import com.isoneday.footballappapi.mvp.presenter.MainPresenter
 import com.isoneday.footballappapi.mvp.view.MainView
+import com.isoneday.footballappapi.mvp.view.activity.DetailActivity
+import kotlinx.android.synthetic.main.fragment_match.*
+import org.jetbrains.anko.support.v4.startActivity
+import org.jetbrains.anko.support.v4.toast
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -45,23 +49,34 @@ class LastMatchFragment : Fragment(), MainView {
 
         mainPresenter =MainPresenter(this)
         mainPresenter?.getLastMatch(idliga)
-        listLeagueAdapter = ListLeagueAdapter(liga)
+        listLeagueAdapter = ListLeagueAdapter(liga){
+            startActivity<DetailActivity>("idevent" to "${it.idEvent}")
+        }
+        //set adapter ke view (RecyclerView)
+        listfootball.adapter = listLeagueAdapter
     }
 
     override fun showloading() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    progress.visibility = View.VISIBLE
     }
 
     override fun hideloading() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        progress.visibility = View.INVISIBLE
     }
 
     override fun showmessage(message: String?) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        toast(message.toString())
     }
 
     override fun showlistteam(listteam: List<EventsItem>?) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        liga.clear()
+        if (listteam!=null){
+            liga.addAll(listteam)
+
+        }else{
+            toast("tidak ada data")
+        }
+        listLeagueAdapter?.notifyDataSetChanged()
     }
 
 
